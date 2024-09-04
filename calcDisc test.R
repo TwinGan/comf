@@ -1,8 +1,3 @@
-library(testthat)
-
-# Ensure this path points directly to where calcDisc.r is located
-library(comf)
-
 test_that("test calcDisc function", {
   # Test 1: Simple input
   result1 <- calcDisc(ta=25, tr=25, vel=0.1, rh=50, clo=0.5, met=1)
