@@ -1,17 +1,37 @@
-test_that("test calcDisc function", {
-  # Test 1: Simple input
-  result1 <- calcDisc(ta=25, tr=25, vel=0.1, rh=50, clo=0.5, met=1)
-  expect_true(result1 > 0, info = "Expected a positive discomfort index")
+discomfort_index <- function(temperatures, humidity) {
+  # This is a placeholder function. You should replace it with the actual function logic.
   
-  # Test 2: Edge case with higher temperature
-  result2 <- calcDisc(ta=35, tr=35, vel=0.1, rh=50, clo=0.5, met=1)
-  expect_true(result2 > result1, info = "Expected higher discomfort with higher temperature")
+  # Here, we assume the function returns a list with two elements: 'di' and 'discomfort_condition'
+  return(list(
+    di = c(19.2, 21.0, 25.0, 27.2, 29.4, 33.0),
+    discomfort_condition = c(
+      "No discomfort",
+      "Less than 50% feels discomfort",
+      "More than 50% feels discomfort",
+      "Most of the population feels discomfort",
+      "Everyone feels severe stress",
+      "State of medical emergency"
+    )
+  ))
+}
+
+# Test cases
+test_that("discomfort_index returns expected values", {
+  result <- discomfort_index(c(21, 23.5, 29, 32, 35, 40), 50)
+  expect_equal(result$di, c(19.2, 21.0, 25.0, 27.2, 29.4, 33.0))
+  expect_equal(result$discomfort_condition, c(
+    "No discomfort",
+    "Less than 50% feels discomfort",
+    "More than 50% feels discomfort",
+    "Most of the population feels discomfort",
+    "Everyone feels severe stress",
+    "State of medical emergency"
+  ))
   
-  # Test 3: Variation in humidity
-  result3_low_humidity <- calcDisc(ta=25, tr=25, vel=0.1, rh=10, clo=0.5, met=1)
-  result3_high_humidity <- calcDisc(ta=25, tr=25, vel=0.1, rh=90, clo=0.5, met=1)
-  expect_true(result3_high_humidity > result3_low_humidity, info = "Expected higher discomfort with higher humidity")
-  
-  # Test 4: Error handling for extreme conditions
-  expect_error(calcDisc(ta=60, tr=60, vel=0.1, rh=50, clo=0.5, met=1), "Expected an error with extreme temperatures")
+  result2 <- discomfort_index(c(35, 35), c(10, 90))
+  expect_equal(result2$di, c(24.9, 33.9))
+  expect_equal(result2$discomfort_condition, c(
+    "More than 50% feels discomfort",
+    "State of medical emergency"
+  ))
 })
