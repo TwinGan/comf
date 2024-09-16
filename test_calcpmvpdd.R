@@ -19,11 +19,18 @@ test_that("test_calcpmvpdd", {
     expected <- data[[i]]$outputs
     
     # Run the calcPMVPPD function with the current test case inputs
-    result <- calcPMVPPD(inputs$ta, inputs$tr, inputs$rh, inputs$v, inputs$met, inputs$clo)
+    result <- calcPMVPPD(inputs$ta,
+                         inputs$tr,
+                         inputs$rh,
+                         inputs$v,
+                         inputs$met,
+                         inputs$clo)
     
-    # Compare the results with the expected values
-    expect_equal(result$pmv, expected$pmv, tolerance = tolerance_pmv)
-    expect_equal(result$ppd, expected$ppd, tolerance = tolerance_ppd)
+# Compare the results with the expected values using expect_true and absolute difference
+    expect_true(abs(result$pmv - expected$pmv) < tolerance_pmv, 
+                info = paste("Test case", i, "failed on PMV values"))
+    expect_true(abs(result$ppd - expected$ppd) < tolerance_ppd, 
+                info = paste("Test case", i, "failed on PPD values"))
   }
 })
 
