@@ -21,14 +21,13 @@ test_that("test_calcdiscomfort_index", {
     rh = inputs$rh
   )
 
-  # Test the DI values with expected outputs, allowing for tolerance if necessary
-  if (!all.equal(result$di, outputs$di, tolerance = tolerance$di)) {
-    warning(paste("Test case", i, "failed on DI values"))
-  }
-
-  # Test the discomfort conditions with expected outputs
-  if (!all.equal(result$discomfort_condition, outputs$discomfort_condition)) {
-    warning(paste("Test case", i, "failed on discomfort conditions"))
+# Test the DI values with expected outputs, allowing for tolerance if necessary
+    expect_equal(result$di, outputs$di, tolerance = tolerance$di, 
+                 info = paste("Test case", i, "failed on DI values"))
+    
+    # Test the discomfort conditions with expected outputs
+    expect_equal(result$discomfort_condition, outputs$discomfort_condition, 
+                 info = paste("Test case", i, "failed on discomfort conditions"))
   }
 }
-})
+)
