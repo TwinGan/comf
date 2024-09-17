@@ -1,7 +1,7 @@
 #source("/Users/yiqingzhang/comf/R/calcCE.R")
 library(testthat)
 
-test_that("Testing cooling effect", {
+test_that("Testing calcCE", {
   # Define the ranges and expected results
   t_range <- seq(10, 40, 10)
   rh_range <- seq(10, 75, 25)
