@@ -1,3 +1,21 @@
+#' Representative clothing insulation Icl as a function of outdoor air temperature at 06:00 a.m [4].
+#' 
+#' @param tout float, int, or array-like outdoor air temperature at 06:00 a.m., 
+#' default in [°C] in [°F] if `units` = 'IP'
+#' @param units is {'SI', 'IP'}, select the SI (International System of Units) or 
+#' the IP (Imperial Units) system. Defaults to 'SI'.
+#' 
+#' @details The ASHRAE 55 2020 states that it is acceptable to determine the clothing insulation 
+#' Icl using this equation in mechanically conditioned buildings [1]_. Limitations: This equation 
+#' may not be accurate for extreme temperature ranges.
+#' @return clo : float, int, or array-like. Representative clothing insulation Icl, [clo]
+#' @references ASHRAE 55 2020
+#' @examples
+#' clo_tout(tout=27)
+#' clo_tout(tout=[27, 25])
+#' @author Code implemented into R by Yiqing Zhang.
+#' @export
+
 calcclo_tout <- function(tout, units = "SI") {
   # Check if tout is numeric or a list of numeric values
   if (!is.numeric(tout) && !is.list(tout)) {
