@@ -1,4 +1,3 @@
-
 test_that("test_calcdiscomfort_index", { 
   source("calcdiscomfort_index.r")
   source("../config.R")
@@ -10,24 +9,24 @@ test_that("test_calcdiscomfort_index", {
   data <- reference_tables$data
   
   # Loop through the rows of the test data
- for (i in seq_along(data)) {
-  # Extract input and output data (assuming data is a list)
-  inputs <- data[[i]]$inputs
-  outputs <- data[[i]]$outputs
+  for (i in seq_along(data)) {
+    # Extract input and output data (assuming data is a list)
+    inputs <- data[[i]]$inputs
+    outputs <- data[[i]]$outputs
 
-  # Vectorized calcdiscomfort_index to handle all inputs at once
-  result <- calcdiscomfort_index(
-    tdb = inputs$tdb,
-    rh = inputs$rh
-  )
+    # Vectorized calcdiscomfort_index to handle all inputs at once
+    result <- calcdiscomfort_index(
+      tdb = inputs$tdb,
+      rh = inputs$rh
+    )
 
-# Test the DI values with expected outputs, allowing for tolerance if necessary
-    expect_equal(result$di, outputs$di, tolerance = tolerance$di, 
-                 info = paste("Test case", i, "failed on DI values"))
+    # Test the DI values using abs() to compare and ensure within tolerance
+    expect_true(abs(result$di - outputs$di) < tolerance$di, 
+                info = paste("Test case", i, "failed on DI values"))
     
-    # Test the discomfort conditions with expected outputs
-    expect_equal(result$discomfort_condition, outputs$discomfort_condition, 
-                 info = paste("Test case", i, "failed on discomfort conditions"))
+    # Test the discomfort conditions
+    expect_true(all(result$discomfort_condition == outputs$discomfort_condition), 
+                info = paste("Test case", i, "failed on discomfort conditions"))
   }
-}
-)
+})
+
