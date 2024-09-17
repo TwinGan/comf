@@ -1,5 +1,4 @@
 test_that("test_calcdiscomfort_index", { 
-  source("calcdiscomfort_index.r")
   source("../config.R")
   source("../utils-test-tool.R")
   
