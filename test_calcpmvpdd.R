@@ -2,8 +2,7 @@ test_that("test_calcpmvpdd", {
   # Source required files
   source("../config.R")
   source("../utils-test-tool.R")
-  source("calcPMVPPD.R")
-  
+
   # Call retrieve_data() to get the test data (adapted for the PMV/PPD data)
   # Update the URL to the appropriate one
   reference_tables <- retrieve_data(url_config$test_pmv_ppd_url)
